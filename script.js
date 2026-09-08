@@ -8,11 +8,13 @@ const decimalButton = document.querySelector(`.decimal`);
 let currentValue = `0`;
 let previousValue = null;
 let operator = null;
+let justCalculated = false;
 
 numberButtons.forEach(button => {
     button.addEventListener(`click`, () => {
-        if (currentValue === `0` || currentValue === `Error: Division by zero`) {
+        if (currentValue === `0` || currentValue === `Error: Division by zero` || justCalculated) {
             currentValue = button.textContent;
+            justCalculated = false;
         } else {
             currentValue += button.textContent;
         }
@@ -64,6 +66,7 @@ equalsButton.addEventListener(`click`, () => {
     display.value = currentValue;
     operator = null;
     previousValue = null;
+    justCalculated = true;
 });
 
 clearButton.addEventListener(`click`, () => {
@@ -76,8 +79,33 @@ clearButton.addEventListener(`click`, () => {
 
 
 decimalButton.addEventListener(`click`, () => {
-    if (currentValue.includes(`.`)) return;
+    if (currentValue.includes(`.`) && !justCalculated) return;
+    if (justCalculated) {
+        currentValue = '0';
+        justCalculated = false;
+    }
     currentValue += `.`;
     display.value = currentValue;
 });
 
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    if (key >= '0' && key <= '9') {
+        const button = [...numberButtons].find(b => b.textContent ===key);
+        button.click();
+    }
+    else if (key === '.') {
+        decimalButton.click();
+    }
+    else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        const button = [...operatorButtons].find(b => b.dataset.op === key);
+        button.click();        
+    }
+    else if (key === 'Enter' || key === '=') {
+        equalsButton.click();
+    }
+    else if (key === 'Escape') {
+        clearButton.click();
+    }
+});
