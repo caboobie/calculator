@@ -11,7 +11,7 @@ let operator = null;
 
 numberButtons.forEach(button => {
     button.addEventListener(`click`, () => {
-        if (currentValue === `0`) {
+        if (currentValue === `0` || currentValue === `Error: Division by zero`) {
             currentValue = button.textContent;
         } else {
             currentValue += button.textContent;
@@ -20,8 +20,37 @@ numberButtons.forEach(button => {
     });
 });
 
+function calculate() {
+    const prev = parseFloat(previousValue);
+    const curr = parseFloat(currentValue);
+    let result;
+
+    if (operator === `+`) result = prev + curr;
+    else if (operator === `-`) result = prev - curr;
+    else if (operator === `*`) result = prev * curr;
+    else if (operator === `/`) {
+        if (curr === 0) {
+            return `Error: Division by zero`;
+        }
+        result = prev / curr;
+    }
+
+    return result;
+}
+
 operatorButtons.forEach(button => {
     button.addEventListener(`click`, () => {
+        if (currentValue === `Error: Division by zero`) {
+            currentValue = `0`;
+            previousValue = null;
+            operator = null;
+            return;
+        }
+
+        if (operator !==null) {
+            currentValue = calculate().toString();
+            display.value = currentValue;
+        }
         operator = button.dataset.op;
         previousValue = currentValue;
         currentValue = `0`;
@@ -31,16 +60,7 @@ operatorButtons.forEach(button => {
 equalsButton.addEventListener(`click`, () => {
     if (operator === null) return;
 
-    const prev = parseFloat(previousValue);
-    const curr = parseFloat(currentValue);
-    let result;
-
-    if (operator === `+`) result = prev + curr;
-    else if (operator === `-`) result = prev - curr;
-    else if (operator === `*`) result = prev * curr;
-    else if (operator === `/`) result = prev / curr;
-
-    currentValue = result.toString();
+    currentValue = calculate().toString();
     display.value = currentValue;
     operator = null;
     previousValue = null;
