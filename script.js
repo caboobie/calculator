@@ -3,6 +3,7 @@ const numberButtons = document.querySelectorAll(`.number`);
 const operatorButtons = document.querySelectorAll(`.operator`);
 const equalsButton = document.querySelector(`.equals`);
 const clearButton = document.querySelector(`.clear`);
+const decimalButton = document.querySelector(`.decimal`);
 
 let currentValue = `0`;
 let previousValue = null;
@@ -43,5 +44,20 @@ equalsButton.addEventListener(`click`, () => {
     display.value = currentValue;
     operator = null;
     previousValue = null;
+});
+
+clearButton.addEventListener(`click`, () => {
+    currentValue = `0`;
+    previousValue = null;
+    operator = null;
+    display.value = currentValue;
+});
+
+
+
+decimalButton.addEventListener(`click`, () => {
+    if (currentValue.includes(`.`)) return;
+    currentValue += `.`;
+    display.value = currentValue;
 });
 
