@@ -1,15 +1,40 @@
+:root {
+    --bg-color: #1a1a2e;
+    --calculator-bg: #16213e;
+    --display-bg: #0f3460;
+    --button-bg: #0f3460;
+    --text-color: #fff;
+    --operator-bg: #e94560;
+    --operator-hover: #f2607e;
+    --clear-bg: #533483;
+    --clear-hover: #6a45a8;
+    --equals-bg: #16c79a;
+    --equals-hover: #1de3b3;
+    --button-hover: #1c4a7a;
+}
+
+body.light-mode {
+    --bg-color: #e8e8f0;
+    --calculator-bg: #ffffff;
+    --display-bg: #f0f0f5;
+    --button-bg: #f0f0f5;
+    --button-hover: #dcdce8;
+    --text-color: #1a1a2e;
+}
+
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background: #1a1a2e;
+    background: var(--bg-color);
     font-family: `segoe UI`, Arial, sans-serif;   
 }
 
 .calculator {
-    background: #16213e;
+    background: var(--calculator-bg);
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -25,8 +50,8 @@ body {
     padding: 0 16px;
     border: none;
     border-radius: 8px;
-    background: #0f3460;
-    color: #fff;
+    background: var(--display-bg);
+    color: var(--text-color);
     box-sizing: border-box;
 }
 
@@ -42,13 +67,13 @@ button {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    background: #0f3460;
-    color: #fff;
+    background: var(--button-bg);
+    color: var(--text-color);
     transition: background 0.15s ease, transform 0.1s ease;
 }
 
 button:hover {
-    background: #1c4a7a;
+    background: var(--button-hover);
 }
 
 button:active {
@@ -56,11 +81,11 @@ button:active {
 }
 
 .operator {
-    background: #e94560;
+    background: var(--operator-bg);
 }
 
 .operator:hover {
-    background: #f2607e;
+    background: var(--operator-hover);
 }
 
 .operator, .equals, .clear {
@@ -69,11 +94,11 @@ button:active {
 }
 
 .clear {
-    background: #533483;
+    background: var(--clear-bg);
 }
 
 .clear:hover {
-    background: #6a45a8;
+    background: var(--clear-hover);
 }
 
 .buttons button:nth-child(13) {
@@ -104,6 +129,20 @@ button:active {
 .equals {
   grid-column: 4;
   grid-row: 3 / 5;
-  background: #16c79a;
+  background: var(--equals-bg);
   height: auto;
+}
+
+.equals:hover {
+    background: var(--equals-hover);
+}
+
+#themeToggle {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-size: 40px;
 }

@@ -4,6 +4,11 @@ const operatorButtons = document.querySelectorAll(`.operator`);
 const equalsButton = document.querySelector(`.equals`);
 const clearButton = document.querySelector(`.clear`);
 const decimalButton = document.querySelector(`.decimal`);
+const themeToggle = document.getElementById('themeToggle');
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+});
 
 let currentValue = `0`;
 let previousValue = null;
